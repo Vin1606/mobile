@@ -5,7 +5,7 @@ class MovieScreen extends StatefulWidget {
   const MovieScreen({super.key});
 
   @override
-  State<MovieScreen> createState() => _MovieScreenState();
+  State<MovieScreen> createState() => _MovieScreenState(); 
 }
 
 class _MovieScreenState extends State<MovieScreen> {
