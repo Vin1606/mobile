@@ -38,7 +38,7 @@ class _TicketPageState extends State<TicketPage> {
             color: Colors.blue[50],
             borderRadius: BorderRadius.circular(24.0),
             border: Border.all(color: Colors.blueAccent, width: 1.5),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black26,
                 blurRadius: 30.0,
@@ -50,10 +50,10 @@ class _TicketPageState extends State<TicketPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
+              const Center(
                 child: Text(
                   'Tiket Nonton',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: Colors.blueAccent,
@@ -105,7 +105,7 @@ class _TicketPageState extends State<TicketPage> {
                             decoration: BoxDecoration(
                               color: Colors.blue[100],
                               borderRadius: BorderRadius.circular(8.0),
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                   color: Colors.black26,
                                   blurRadius: 5.0,

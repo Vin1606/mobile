@@ -1,3 +1,4 @@
+import 'package:bioskopks/pages/api_page.dart';
 import 'package:flutter/material.dart';
 import '../models/film.dart';
 import '../services/film.dart';
@@ -35,15 +36,15 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 0, 43, 74),
-        title: Row(
+        title: const Row(
           children: [
             Icon(
               Icons.movie,
               size: 20,
               color: Colors.white,
             ),
-            const SizedBox(width: 10),
-            const Text(
+            SizedBox(width: 10),
+            Text(
               'Daftar Film',
               style: TextStyle(
                   fontSize: 20,
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.white,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black26,
                             blurRadius: 6,
@@ -102,6 +103,19 @@ class _HomePageState extends State<HomePage> {
                     return const SizedBox(height: 12.0);
                   },
                 ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  MovieScreen(), // Pastikan ini ke MovieScreen
+            ),
+          );
+        },
+        backgroundColor: const Color.fromARGB(255, 0, 43, 74),
+        child: const Icon(Icons.api),
+      ),
     );
   }
 }
