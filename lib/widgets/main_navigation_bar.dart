@@ -43,7 +43,7 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
   }
 
   void _startColorBlinking() {
-    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       setState(() {
         _selectedColor =
             _selectedColor == Colors.blue ? Colors.red : Colors.blue;
@@ -100,7 +100,7 @@ class _MainNavigationBarState extends State<MainNavigationBar> {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 100.0, // Ubah tinggi sesuai kebutuhan
                     child: const DrawerHeader(
                       decoration: BoxDecoration(

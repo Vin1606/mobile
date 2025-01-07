@@ -132,7 +132,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
         _paymentProofPath = image.path;
       });
       await _updatePaymentProofInOrder(image.path);
-      print('Gambar diunggah: ${_paymentProofPath}');
+      print('Gambar diunggah: $_paymentProofPath');
 
       if (!_isAdmin) {
         await _dbHelper.insertImage(image.path);
@@ -449,10 +449,10 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                     const SizedBox(height: 12.0),
                     (_paymentProofPath != null && _paymentProofPath!.isNotEmpty)
                         ? (_detailOrder!.status == 'Sukses'
-                            ? Center(
+                            ? const Center(
                                 child: Text(
                                   'Booking berhasil dikonfirmasi',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     color: Colors.green,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15.0,

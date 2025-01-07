@@ -190,7 +190,7 @@ class _OrderPageState extends State<OrderPage> {
                 children: [
                   const Text(
                     'Metode Pembayaran',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.black54,
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
