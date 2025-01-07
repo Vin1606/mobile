@@ -31,6 +31,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
   int? _adminId;
   bool _isLoading = true;
   String? _paymentProofPath;
+  bool _isApproved = false;
 
   final ImagePicker _picker = ImagePicker();
   final DatabaseHelper _dbHelper = DatabaseHelper();
@@ -50,6 +51,7 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
       _note = _detailOrder?.note;
       _isLoading = false;
       _paymentProofPath = _detailOrder?.paymentProof;
+      _isApproved = _detailOrder?.status == 'Sukses';
     });
 
     _noteController = TextEditingController(text: _note);
@@ -87,6 +89,9 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
   }
 
   Future<void> _onUpdate(BuildContext context, String status) async {
+    if (_detailOrder!.method == 'Cash') {
+      status = 'Sukses';
+    }
     Order order = Order(
       id: _detailOrder!.id,
       userId: _detailOrder!.userId,
@@ -425,7 +430,8 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                         ),
                         if (_isAdmin && _detailOrder!.method == 'Cash')
                           const Text(
-                              'Pembayaran dilakukan secara tunai, tidak perlu unggah bukti.')
+                            'Pembayaran dilakukan secara tunai, tidak perlu unggah bukti.',
+                          )
                         else if (_paymentProofPath != null &&
                             _paymentProofPath!.isNotEmpty &&
                             _detailOrder!.method != 'Cash')
@@ -437,6 +443,31 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                           )
                         else
                           const SizedBox(height: 10.0),
+                        if (_detailOrder!.method == 'Cash' &&
+                            _isAdmin &&
+                            !_isApproved)
+                          ElevatedButton(
+                            onPressed: () {
+                              _onUpdate(context, 'Sukses');
+                              setState(() {
+                                _isApproved = true;
+                              });
+                            },
+                            child: const Text('Approve Pembayaran'),
+                          )
+                        else if (_isApproved)
+                          const SizedBox(height: 10.0),
+                        Center(
+                          child: Text(
+                            'Pembayaran telah disetujui.',
+                            style: const TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20.0),
                         if (!_isAdmin &&
                             _detailOrder!.method != 'Cash' &&
                             _detailOrder!.status != 'Sukses')
@@ -464,9 +495,12 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                                   Expanded(
                                     child: FilledButton(
                                       onPressed: () {
-                                        String status = _isAdmin
+                                        String status = _detailOrder!.method ==
+                                                'Cash'
                                             ? 'Sukses'
-                                            : 'Menunggu Konfirmasi Admin';
+                                            : (_isAdmin
+                                                ? 'Sukses'
+                                                : 'Menunggu Konfirmasi Admin');
                                         _onUpdate(context, status);
                                       },
                                       style: FilledButton.styleFrom(
@@ -476,7 +510,8 @@ class _DetailOrderPageState extends State<DetailOrderPage> {
                                     ),
                                   ),
                                   const SizedBox(width: 8.0),
-                                  if (_isAdmin)
+                                  if (_isAdmin &&
+                                      _detailOrder!.method != 'Cash')
                                     Expanded(
                                       child: FilledButton(
                                         onPressed: () {
